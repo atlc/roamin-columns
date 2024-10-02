@@ -3,7 +3,7 @@ import config from "../config";
 
 const pool = new pg.Pool(config.pg);
 
-type QueryResultsReturningID = pg.QueryResult & { id?: string };
+type QueryResultsReturningID = pg.QueryResult & { id: string };
 
 export const Query = async <T = QueryResultsReturningID>(sql: string, vals?: unknown[]) => {
     const res = await pool.query(sql, vals);

@@ -3,7 +3,6 @@ dotenv.config();
 
 interface EnvObject { [key: string]: unknown }
 
-
 const domain = {
     url: process.env.CLIENT_URL_BASE,
 };

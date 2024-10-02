@@ -1,6 +1,6 @@
-# My Columns API
+# Roamin' Columns API
 
-Welcome to My Columns, a drag-and-drop column-based application similar to tools like Jira or Trello. This project is built with TypeScript and Node.js, and utilizes Mailgun for passwordless authentication.
+Welcome to Roamin' Columns, a drag-and-drop column-based application similar to tools like Jira or Trello. It's like Roman Columns, except they're Roamin' around - feel free to roll your eyes here. This project is built with TypeScript and Node.js, and utilizes Mailgun for a completely passwordless authentication workflow.
 
 Features:
 - Create your own boards - Todo lists, project tracking, etc.
