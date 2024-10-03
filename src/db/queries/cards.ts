@@ -23,7 +23,7 @@ const redate = ({ dueAt, id }: Partial<Card>, userId: string) => Query(`UPDATE c
 
 const redescribe = ({ description, id }: Partial<Card>, userId: string) => Query(`UPDATE cards SET description=$1 WHERE id=$2 AND ${COLUMN_ID_CLAUSE}`, [description, id, userId]);
 
-const rename = ({ title, id }: Partial<Card>, userId: string) => Query(`UPDATE cards SET title=$1 WHERE id=$2 AND ${COLUMN_ID_CLAUSE}`, [title, id, userId]);
+const retitle = ({ title, id }: Partial<Card>, userId: string) => Query(`UPDATE cards SET title=$1 WHERE id=$2 AND ${COLUMN_ID_CLAUSE}`, [title, id, userId]);
 
 const destroy = ({ id }: Partial<Card>, userId: string) => Query('DELETE FROM cards WHERE id=$1 AND boardId IN (SELECT id FROM boards WHERE userId=$2)', [id, userId]);
 
@@ -33,7 +33,7 @@ export default {
         description: redescribe,
         dueDate: redate,
         column: move,
-        name: rename
+        title: retitle
     },
     destroy
 }
