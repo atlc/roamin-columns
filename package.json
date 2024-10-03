@@ -7,7 +7,8 @@
     "watch:restart-server": "nodemon --config nodemon.json",
     "dev": "npm-run-all --parallel watch:*",
     "build": "node esbuild/prod.mjs",
-    "start": "node dist/server.js"
+    "start": "node dist/server.js",
+    "refreshDB": "ts-node src/db/migrations/index.ts"
   },
   "keywords": [],
   "author": "",

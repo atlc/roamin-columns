@@ -2,7 +2,8 @@ import { RequestHandler } from 'express';
 import UAParser from 'ua-parser-js';
 
 export const parseUserAgent: RequestHandler = (req, res, next) => {
-    const ip = req.ip;
+    const forwardedIp = (req.headers['x-forwarded-for'] as string)?.split(',')[0]
+    const ip = forwardedIp || req.ip;
     let reqUAString = `IP address ${ip}`
 
     const userAgentString = req.headers['user-agent'] || '';
@@ -10,7 +11,6 @@ export const parseUserAgent: RequestHandler = (req, res, next) => {
     const agent = parser.getResult();
     const browser = `${agent.browser.name} ${agent.browser.version}`;
     const os = `${agent.os.name} ${agent.os.version}`;
-
 
     if (userAgentString) reqUAString += ` using ${browser} on ${os}`
 
