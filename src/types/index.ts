@@ -1,40 +1,4 @@
-export interface User extends CreatableUser {
-    id: string;
-    isVerified: boolean;
-    createdAt: Date;
-    lastLoginTime: Date;
-    lastLoginLocation: string;
-}
-
-export interface CreatableUser {
-    name: string;
-    email: string;
-}
-
-export interface Board {
-    id: string;
-    name: string;
-    userId: string;
-    createdAt: Date;
-}
-
-export interface Column {
-    id: string;
-    boardId: string;
-    name: string;
-    createdAt: Date;
-}
-
-export interface Card {
-    id: string;
-    columnId: string;
-    title: string;
-    description: string;
-    position: number;
-    createdAt: string;
-    dueAt: Date
-}
-
+export * from './models';
 
 export interface Payload {
     id: string;

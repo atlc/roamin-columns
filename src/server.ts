@@ -13,4 +13,6 @@ app.get('/test', (req, res) => {
     })
 })
 
-app.listen(config.server.port); 
+app.listen(config.server.port || 3000, () => {
+    if (config.server.isDev) console.log(`Server reloaded at ${new Date().toLocaleString()}`)
+}); 

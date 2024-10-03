@@ -1,6 +1,6 @@
 import express from 'express';
 import jwt from 'jsonwebtoken';
-import { CreatableUser, Payload } from '../../types';
+import { BaseUser, Payload } from '../../types';
 import db from '../../db';
 import validators from '../../validators';
 import { sendLoginMail, sendVerificationMail } from '../../services/mailgun';
@@ -9,7 +9,7 @@ import config from '../../config';
 const router = express.Router();
 
 router.post('/register', validators.users.registration, async (req, res) => {
-    const { name, email } = req.body as CreatableUser;
+    const { name, email } = req.body as BaseUser;
     try {
         const { id } = await db.users.register({ name, email }, req.useragent);
         await sendVerificationMail({ id, name, email });
@@ -20,7 +20,7 @@ router.post('/register', validators.users.registration, async (req, res) => {
 });
 
 router.post('/login', validators.users.login, async (req, res) => {
-    const { email } = req.body as CreatableUser;
+    const { email } = req.body as BaseUser;
     try {
         const [user] = await db.users.find(email, req.useragent);
 

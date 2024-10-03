@@ -1,5 +1,5 @@
 import { Query } from "../connection";
-import { CreatableUser, User } from "../../types";
+import { BaseUser, User } from "../../types";
 
 const find = (email: User['email'], userAgentString: string) => {
     const lastLoginTime = new Date().toISOString();
@@ -7,7 +7,7 @@ const find = (email: User['email'], userAgentString: string) => {
     return Query<User[]>('SELECT * FROM users WHERE email=$1', [email])
 }
 
-const register = ({ name, email }: CreatableUser, userAgentString: string) => {
+const register = ({ name, email }: BaseUser, userAgentString: string) => {
     const createdAt = new Date().toISOString();
     return Query('INSERT INTO users (name, email, createdAt, lastLoginTime, lastLoginLocation) VALUES ($1, $2, $3, $4, $5) RETURNING id', [name, email, createdAt, createdAt, userAgentString])
 }

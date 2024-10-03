@@ -1,8 +1,8 @@
 import { Request, Response, NextFunction, RequestHandler } from "express";
-import { CreatableUser } from "../types";
+import { BaseUser } from "../types";
 
 const login: RequestHandler = (req: Request, res: Response, next: NextFunction): any => {
-    const { email } = req.body as CreatableUser;
+    const { email } = req.body as BaseUser;
     const emailPattern = /^[^@]+@[^@]+\.[^@]+$/
 
     if (!email) {
@@ -19,7 +19,7 @@ const login: RequestHandler = (req: Request, res: Response, next: NextFunction):
 }
 
 const registration: RequestHandler = (req, res, next) => {
-    const { name, email } = req.body as CreatableUser;
+    const { name, email } = req.body as BaseUser;
     const emailPattern = /^[^@]+@[^@]+\.[^@]+$/
 
     if (!name) {
