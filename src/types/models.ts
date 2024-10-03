@@ -41,5 +41,18 @@ export interface BaseCard {
 export interface Card extends BaseCard {
     id: string;
     position: number;
-    createdAt: string;
+    createdAt: Date;
+}
+
+export interface UserProfileJoinResults {
+    boardId: string;
+    boardName: string;
+    columnId: string;
+    columnName: string;
+    cardId: string;
+    cardTitle: string;
+    cardDescription: string;
+    cardPosition: number;
+    cardDueAt: Date;
+    cardCreatedAt: Date;
 }
