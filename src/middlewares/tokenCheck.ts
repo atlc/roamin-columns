@@ -11,9 +11,9 @@ export const tokenCheck: RequestHandler = (req, res, next) => {
         return;
     }
 
-    const [token, type] = authHeader.split(' ');
+    const [type, token] = authHeader.split(' ');
 
-    if (!token || !type) {
+    if (!token || !type || type.toLowerCase() !== "bearer") {
         res.status(401).json({ message: "Invalid auth header format" });
         return;
     }

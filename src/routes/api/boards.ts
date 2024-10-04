@@ -19,7 +19,7 @@ router.post('/', validators.boards.hasValidName, async (req, res, next) => {
         .catch(next)
 });
 
-router.put('/rename/:id', validators.boards.hasValidName, async (req, res, next) => {
+router.put('/:id/rename', validators.boards.hasValidName, async (req, res, next) => {
     const { name } = req.body;
     const id = req.params.id;
     const userId = req.user.id;

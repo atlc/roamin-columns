@@ -50,7 +50,7 @@ const verify: RequestHandler = (req, res, next) => {
 
     const VALID_TYPES = ['verification', 'login'];
 
-    if (!token || typeof token !== "string" || token.startsWith('ey')) {
+    if (!token || typeof token !== "string" || !token.startsWith('ey')) {
         res.status(400).json({ message: "Missing 'token' query parameter or it is not a valid jwt" });
         return;
     }

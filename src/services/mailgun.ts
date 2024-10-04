@@ -13,16 +13,11 @@ interface MailProps {
     to: string;
     from: string;
     subject: string;
-    body: string;
+    html: string;
 }
 
-export const sendMail = ({ to, from, subject, body }: MailProps) => {
-    return client.messages.create(config.mailgun.domain, {
-        to,
-        from,
-        subject,
-        html: body,
-    });
+export const sendMail = ({ to, from, subject, html }: MailProps) => {
+    return client.messages.create(config.mailgun.domain, { to, from, subject, html });
 };
 
 export const sendVerificationMail = (payload: Payload) => {
@@ -31,10 +26,10 @@ export const sendVerificationMail = (payload: Payload) => {
 
     return sendMail({
         to: email,
-        from: `Registration <noreply@mycolumns.com>`,
-        subject: "Verify your MyColumns Account",
-        body: `Please click the below link to verify your account. This link will expire after 15 minutes.
-          <a href="${config.domain.url}/verify?token=${token}&type=verification>Verify</a>
+        from: `Registration <noreply@taskcanvas.com>`,
+        subject: "Verify your TaskCanvas Account",
+        html: `<h1>Please click the below link to verify your account. This link will expire after 15 minutes.</h1>
+          <a href="${config.domain.url}/verify?token=${token}&type=verification">Verify</a>
         `,
     });
 };
@@ -44,12 +39,12 @@ export const sendLoginMail = ({ email, name, id, lastLoginTime, lastLoginLocatio
 
     return sendMail({
         to: email,
-        from: `Login <noreply@mycolumns.com>`,
+        from: `Login <noreply@taskcanvas.com>`,
         subject: "Sign in to your account portal",
-        body: `
+        html: `
             <h1>Please click the below link to log into your account. This link will expire after 15 minutes.</h1>
-            <p><a href="${config.domain.url}/verify?token=${token}&type=login>Login</a></p>
-            <p>Last login attempted at ${lastLoginTime.toLocaleString()} from ${lastLoginLocation}</p>
+            <p><a href="${config.domain.url}/verify?token=${token}&type=login">Login</a></p>
+            <p>Last login attempted at ${lastLoginTime?.toLocaleString() || new Date().toLocaleString()} from ${lastLoginLocation}</p>
         `,
     });
 };

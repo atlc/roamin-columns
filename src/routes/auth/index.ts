@@ -43,13 +43,13 @@ router.get('/verify', validators.users.verify, async (req, res) => {
             return;
         }
 
-        const { id } = payload as Payload;
+        const { id, name, email } = payload as Payload;
 
         if (type === 'verification') {
             await db.users.verify(id, req.useragent);
         }
 
-        const accessToken = jwt.sign(payload as Payload, config.jwt.secret, { expiresIn: '30d' });
+        const accessToken = jwt.sign({ id, name, email } as Payload, config.jwt.secret, { expiresIn: '30d' });
         res.status(200).json({ message: "Successfully logged in", accessToken });
     })
 })
