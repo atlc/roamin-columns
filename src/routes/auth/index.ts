@@ -5,6 +5,7 @@ import db from '../../db';
 import validators from '../../validators';
 import { sendLoginMail, sendVerificationMail } from '../../services/mailgun';
 import config from '../../config';
+import { tokenCheck } from '../../middlewares/tokenCheck';
 
 const router = express.Router();
 
@@ -52,6 +53,8 @@ router.get('/verify', validators.users.verify, async (req, res) => {
         const accessToken = jwt.sign({ id, name, email } as Payload, config.jwt.secret, { expiresIn: '30d' });
         res.status(200).json({ message: "Successfully logged in", accessToken });
     })
-})
+});
+
+router.get('/check', tokenCheck, (req, res) => { res.json({ message: "All good!" }) });
 
 export default router;

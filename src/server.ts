@@ -3,11 +3,14 @@ import config from './config'
 import { parseUserAgent } from './middlewares/useragent';
 import router from './routes';
 import { globalErrorHandler } from './middlewares/globalError';
+import cors from 'cors';
 
 const app = express();
 
+app.use(cors());
 app.use(express.json());
 app.use(parseUserAgent);
+
 app.use(router);
 app.use(globalErrorHandler);
 
