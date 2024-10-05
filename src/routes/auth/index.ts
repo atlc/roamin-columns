@@ -14,8 +14,12 @@ router.post('/register', validators.users.registration, async (req, res) => {
     try {
         const { id } = await db.users.register({ name, email }, req.useragent);
         await sendVerificationMail({ id, name, email });
-        res.status(201).json({ message: "Please check your email to finish registration" });
-    } catch (error) {
+        res.status(201).json({ message: "Please check your email to finish registration." });
+    } catch (err) {
+        const error = err as Error;
+        if ("message" in error && error.message.includes('duplicate key')) {
+            error.message = "That email has already been registered, please try logging in."
+        }
         res.status(500).json({ message: (error as Error).message });
     }
 });
@@ -29,7 +33,7 @@ router.post('/login', validators.users.login, async (req, res) => {
             await sendLoginMail(user)
         }
 
-        res.status(200).json({ message: "If that email exists in our system, an email will have been sent to your inbox to finish logging in." })
+        res.status(200).json({ message: "If that email exists in our system, an email will have been sent to your inbox ." })
     } catch (error) {
         res.status(500).json({ message: (error as Error).message });
     }
@@ -50,8 +54,8 @@ router.get('/verify', validators.users.verify, async (req, res) => {
             await db.users.verify(id, req.useragent);
         }
 
-        const accessToken = jwt.sign({ id, name, email } as Payload, config.jwt.secret, { expiresIn: '30d' });
-        res.status(200).json({ message: "Successfully logged in", accessToken });
+        const token = jwt.sign({ id, name, email } as Payload, config.jwt.secret, { expiresIn: '30d' });
+        res.status(200).json({ message: "Successfully logged in", token });
     })
 });
 
